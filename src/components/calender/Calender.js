@@ -66,9 +66,9 @@ export function Calender({ options = { enableCrossMonth: false } }) {
         </button>
       </div>
       <div className="dates">
-        {calenderWeeks.map((week) => {
+        {calenderWeeks.map((week, index) => {
           return (
-            <div key={week} className="week">
+            <div key={index} className="week">
               {week.map((date) => {
                 return (
                   <button
