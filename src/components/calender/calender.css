@@ -39,6 +39,8 @@
   height: 36px;
   text-align: center;
   line-height: 36px;
+  border: none;
+  background: transparent;
 
   &:hover {
     cursor: pointer;

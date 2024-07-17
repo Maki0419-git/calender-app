@@ -71,8 +71,11 @@ export function Calender({ options = { enableCrossMonth: false } }) {
             <div key={week} className="week">
               {week.map((date) => {
                 return (
-                  <div
+                  <button
                     key={date.valueOf()}
+                    disabled={
+                      !enableCrossMonth && !isCurrentMonth(date) ? true : false
+                    }
                     className={getClassNames(
                       date,
                       startDate,
@@ -82,7 +85,7 @@ export function Calender({ options = { enableCrossMonth: false } }) {
                     onClick={() => handleDateClick(date, startDate, endDate)}
                   >
                     {date.getDate()}日
-                  </div>
+                  </button>
                 );
               })}
             </div>
