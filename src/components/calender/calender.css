@@ -50,6 +50,7 @@
   }
   &.active {
     background-color: #006edc;
+    color: white;
   }
   &.none-current-month {
     color: #757575;
