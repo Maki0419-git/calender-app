@@ -24,10 +24,7 @@ export function Calender({ options = { enableCrossMonth: false } }) {
   const [endDate, setEndDate] = useState(null);
   const { calenderWeeks } = useCalender(date.getMonth(), date.getFullYear());
   const { enableCrossMonth } = options;
-  console.log({
-    startDate,
-    endDate,
-  });
+
   const prevMonth = () => {
     setDate((prev) => {
       return new Date(prev.getFullYear(), prev.getMonth() - 1, 1);
@@ -51,7 +48,6 @@ export function Calender({ options = { enableCrossMonth: false } }) {
     }
   };
 
-  console.log(calenderWeeks);
   return (
     <div className="container">
       <div className="header">
