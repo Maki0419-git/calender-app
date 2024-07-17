@@ -11,11 +11,11 @@ const isActive = (date, startDate, endDate) => {
 };
 
 const getClassNames = (date, startDate, endDate, enableCrossMonth) => {
-  return `date ${isToday(date) && "today"} ${
-    isActive(date, startDate, endDate) && "active"
-  } ${isCurrentMonth(date) || "none-current-month"} ${
-    !isCurrentMonth(date) && !enableCrossMonth && "disabled"
-  }`;
+  return `date ${isToday(date) ? "today" : ""} ${
+    isActive(date, startDate, endDate) ? "active" : ""
+  } ${isCurrentMonth(date) ? "" : "none-current-month"} ${
+    !isCurrentMonth(date) && !enableCrossMonth ? "disabled" : ""
+  }`.trimEnd();
 };
 
 export function Calender({ options = { enableCrossMonth: false } }) {
