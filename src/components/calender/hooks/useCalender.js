@@ -10,27 +10,15 @@ export function useCalender(month, year) {
     const dates = [];
     /** push previous month's dates into array  */
     for (let x = firstDayIndex; x > 0; x--) {
-      dates.push({
-        day: prevMonthLastDay - x + 1,
-        month: month - 1,
-        year: year,
-      });
+      dates.push(new Date(year, month - 1, prevMonthLastDay - x + 1));
     }
     /** push current month's dates into array */
     for (let i = 1; i <= lastDay.getDate(); i++) {
-      dates.push({
-        day: i,
-        month,
-        year,
-      });
+      dates.push(new Date(year, month, i));
     }
     /** push next month's dates into array */
     for (let j = 1; j <= 6 - lastDayIndex; j++) {
-      dates.push({
-        day: j,
-        month: month + 1,
-        year,
-      });
+      dates.push(new Date(year, month + 1, j));
     }
     return dates;
   }, [month, year]);

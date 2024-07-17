@@ -4,26 +4,22 @@ import { useCalender } from "./hooks/useCalender";
 
 const isToday = (date) => {
   const today = new Date();
-  return date.day === today.getDate() &&
-    date.month === today.getMonth() &&
-    date.year === today.getFullYear()
+
+  return date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
     ? "today"
     : "";
 };
 
 const isActive = (date, startDate, endDate) => {
   if (startDate && endDate) {
-    return new Date(date.year, date.month, date.day) >=
-      new Date(startDate.year, startDate.month, startDate.day) &&
-      new Date(date.year, date.month, date.day) <=
-        new Date(endDate.year, endDate.month, endDate.day)
-      ? "active"
-      : "";
+    return date >= startDate && date <= endDate ? "active" : "";
   } else if (
     startDate &&
-    date.day === startDate.day &&
-    date.month === startDate.month &&
-    date.year === startDate.year
+    date.getDate() === startDate.getDate() &&
+    date.getMonth() === startDate.getMonth() &&
+    date.getFullYear() === startDate.getFullYear()
   )
     return "active";
   return "";
@@ -31,7 +27,8 @@ const isActive = (date, startDate, endDate) => {
 
 const isCurrentMonth = (date, enableCrossMonth) => {
   const today = new Date();
-  return date.month === today.getMonth() && date.year === today.getFullYear()
+  return date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
     ? ""
     : `none-current-month ${enableCrossMonth ? "" : "disabled"}`;
 };
@@ -61,11 +58,7 @@ export function Calender({ options = { enableCrossMonth: false } }) {
   const handleDateClick = (date) => {
     if (!startDate) {
       setStartDate(date);
-    } else if (
-      !endDate &&
-      new Date(date.year, date.month, date.day) >=
-        new Date(startDate.year, startDate.month, startDate.day)
-    ) {
+    } else if (!endDate && date >= startDate) {
       setEndDate(date);
     } else {
       setStartDate(date);
@@ -88,20 +81,20 @@ export function Calender({ options = { enableCrossMonth: false } }) {
         </button>
       </div>
       <div className="dates">
-        {calenderWeeks.map((week, index) => {
+        {calenderWeeks.map((week) => {
           return (
-            <div key={index} className="week">
-              {week.map((date, i) => {
+            <div key={week} className="week">
+              {week.map((date) => {
                 return (
                   <div
-                    key={i}
+                    key={date.valueOf()}
                     className={`date ${isToday(date)} ${isCurrentMonth(
                       date,
                       enableCrossMonth
                     )} ${isActive(date, startDate, endDate)}`}
                     onClick={() => handleDateClick(date, startDate, endDate)}
                   >
-                    {date.day}日
+                    {date.getDate()}日
                   </div>
                 );
               })}
