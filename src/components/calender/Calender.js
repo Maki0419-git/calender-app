@@ -1,34 +1,23 @@
 import { useState } from "react";
 import "./calender.css";
 import { useCalender } from "./hooks/useCalender";
+import { isSameDate, isSameMonth } from "./utils/date";
 
 const isToday = (date) => {
   const today = new Date();
-
-  return date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
-    ? "today"
-    : "";
+  return isSameDate(date, today) ? "today" : "";
 };
 
 const isActive = (date, startDate, endDate) => {
   if (startDate && endDate) {
     return date >= startDate && date <= endDate ? "active" : "";
-  } else if (
-    startDate &&
-    date.getDate() === startDate.getDate() &&
-    date.getMonth() === startDate.getMonth() &&
-    date.getFullYear() === startDate.getFullYear()
-  )
-    return "active";
+  } else if (startDate && isSameDate(date, startDate)) return "active";
   return "";
 };
 
 const isCurrentMonth = (date, enableCrossMonth) => {
   const today = new Date();
-  return date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
+  return isSameMonth(date, today)
     ? ""
     : `none-current-month ${enableCrossMonth ? "" : "disabled"}`;
 };
