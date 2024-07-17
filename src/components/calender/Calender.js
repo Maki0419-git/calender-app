@@ -1,25 +1,21 @@
 import { useState } from "react";
 import "./calender.css";
 import { useCalender } from "./hooks/useCalender";
-import { isSameDate, isSameMonth } from "./utils/date";
-
-const isToday = (date) => {
-  const today = new Date();
-  return isSameDate(date, today) ? "today" : "";
-};
+import { isCurrentMonth, isSameDate, isToday } from "./utils/date";
 
 const isActive = (date, startDate, endDate) => {
   if (startDate && endDate) {
-    return date >= startDate && date <= endDate ? "active" : "";
-  } else if (startDate && isSameDate(date, startDate)) return "active";
-  return "";
+    return date >= startDate && date <= endDate;
+  } else if (startDate && isSameDate(date, startDate)) return true;
+  return false;
 };
 
-const isCurrentMonth = (date, enableCrossMonth) => {
-  const today = new Date();
-  return isSameMonth(date, today)
-    ? ""
-    : `none-current-month ${enableCrossMonth ? "" : "disabled"}`;
+const getClassNames = (date, startDate, endDate, enableCrossMonth) => {
+  return `date ${isToday(date) && "today"} ${
+    isActive(date, startDate, endDate) && "active"
+  } ${isCurrentMonth(date) || "none-current-month"} ${
+    !isCurrentMonth(date) && !enableCrossMonth && "disabled"
+  }`;
 };
 
 export function Calender({ options = { enableCrossMonth: false } }) {
@@ -77,10 +73,12 @@ export function Calender({ options = { enableCrossMonth: false } }) {
                 return (
                   <div
                     key={date.valueOf()}
-                    className={`date ${isToday(date)} ${isCurrentMonth(
+                    className={getClassNames(
                       date,
+                      startDate,
+                      endDate,
                       enableCrossMonth
-                    )} ${isActive(date, startDate, endDate)}`}
+                    )}
                     onClick={() => handleDateClick(date, startDate, endDate)}
                   >
                     {date.getDate()}日
