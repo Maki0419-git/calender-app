@@ -5,6 +5,7 @@ function App() {
     <div>
       <h1>Calender App</h1>
       <Calender />
+      <Calender options={{ enableCrossMonth: true }} />
     </div>
   );
 }

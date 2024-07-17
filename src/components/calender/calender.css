@@ -48,11 +48,15 @@
   &.today {
     background-color: #ffff76;
   }
+  &.none-current-month {
+    color: #757575;
+  }
+
+  &.none-current-month.disabled:hover {
+    cursor: not-allowed;
+  }
   &.active {
     background-color: #006edc;
     color: white;
-  }
-  &.none-current-month {
-    color: #757575;
   }
 }
