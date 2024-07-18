@@ -1,4 +1,4 @@
-import { Calender } from "./components/calender";
+import { Calendar } from "./components/calendar";
 import "./app.css";
 
 function App() {
@@ -6,9 +6,9 @@ function App() {
     <div className="container">
       <h1>Calender App</h1>
       <h2>Task1</h2>
-      <Calender />
+      <Calendar />
       <h2>Task2</h2>
-      <Calender options={{ enableCrossMonth: true }} />
+      <Calendar options={{ enableCrossMonth: true }} />
     </div>
   );
 }

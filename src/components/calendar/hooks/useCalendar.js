@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
-export function useCalender(month, year) {
-  const calenderDates = useMemo(() => {
+export function useCalendar(month, year) {
+  const calendarDates = useMemo(() => {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const firstDayIndex = firstDay.getDay();
@@ -23,8 +23,8 @@ export function useCalender(month, year) {
     return dates;
   }, [month, year]);
 
-  const calenderWeeks = useMemo(() => {
-    return calenderDates.reduce((acc, date) => {
+  const calendarWeeks = useMemo(() => {
+    return calendarDates.reduce((acc, date) => {
       const week = acc[acc.length - 1];
       if (!week || week.length === 7) {
         acc.push([date]);
@@ -33,10 +33,10 @@ export function useCalender(month, year) {
       }
       return acc;
     }, []);
-  }, [calenderDates]);
+  }, [calendarDates]);
 
   return {
-    calenderDates,
-    calenderWeeks,
+    calendarDates,
+    calendarWeeks,
   };
 }

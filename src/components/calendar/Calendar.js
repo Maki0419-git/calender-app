@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./calender.css";
-import { useCalender } from "./hooks/useCalender";
+import "./calendar.css";
+import { useCalendar } from "./hooks/useCalendar";
 import { isCurrentMonth, isSameDate, isToday } from "./utils/date";
 
 const isActive = (date, startDate, endDate) => {
@@ -18,11 +18,11 @@ const getClassNames = (date, startDate, endDate, enableCrossMonth) => {
   }`.trimEnd();
 };
 
-export function Calender({ options = { enableCrossMonth: false } }) {
+export function Calendar({ options = { enableCrossMonth: false } }) {
   const [date, setDate] = useState(new Date());
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const { calenderWeeks } = useCalender(date.getMonth(), date.getFullYear());
+  const { calendarWeeks } = useCalendar(date.getMonth(), date.getFullYear());
   const { enableCrossMonth } = options;
 
   const prevMonth = () => {
@@ -55,14 +55,16 @@ export function Calender({ options = { enableCrossMonth: false } }) {
           &lt;
         </button>
         <div className="month">
-          {date.getFullYear()}年 {date.getMonth() + 1}月
+          <h4>
+            {date.getFullYear()}年 {date.getMonth() + 1}月
+          </h4>
         </div>
         <button className="arrow-right" onClick={nextMonth}>
           &gt;
         </button>
       </div>
       <div className="dates">
-        {calenderWeeks.map((week, index) => {
+        {calendarWeeks.map((week, index) => {
           return (
             <div key={index} className="week">
               {week.map((date) => {
